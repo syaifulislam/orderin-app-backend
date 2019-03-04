@@ -7,11 +7,11 @@ class HomeController {
         let orderWaiting = await Order.query().with('OrderDetail').where('user_id',ID).where('state','Waiting').orderBy('created_at','desc').fetch()
         let orderAccepted = await Order.query().with('OrderDetail').where('user_id',ID).where('state','Accepted').orderBy('created_at','desc').fetch()
         let orderRejected = await Order.query().with('OrderDetail').where('user_id',ID).where('state','Rejected').orderBy('created_at','desc').fetch()
-        let arrayResponse = new Array({
+        let arrayResponse = {
             waiting     :   orderWaiting,
             accepted    :   orderAccepted,
             rejected    :   orderRejected
-        })
+        }
         return response.json({status: "OK", message: "success",code: 200, data: arrayResponse})
     }
 }
