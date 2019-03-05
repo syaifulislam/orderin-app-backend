@@ -3,9 +3,9 @@ const Order = use('App/Models/Order')
 
 class FoodServerController {
     async index ({response}) {
-        let orderWaiting = await Order.query().with('OrderDetail').with('User').where('state','Waiting').orderBy('created_at','desc').fetch()
-        let orderAccepted = await Order.query().with('OrderDetail').with('User').where('state','Accepted').orderBy('created_at','desc').fetch()
-        let orderRejected = await Order.query().with('OrderDetail').with('User').where('state','Rejected').orderBy('created_at','desc').fetch()
+        let orderWaiting = await Order.query().with('OrderDetail').with('User').where('state','Waiting').orderBy('user_id','asc').orderBy('created_at','desc').fetch()
+        let orderAccepted = await Order.query().with('OrderDetail').with('User').where('state','Accepted').orderBy('user_id','asc').orderBy('created_at','desc').fetch()
+        let orderRejected = await Order.query().with('OrderDetail').with('User').where('state','Rejected').orderBy('user_id','asc').orderBy('created_at','desc').fetch()
         let arrayResponse = {
             waiting     :   orderWaiting,
             accepted    :   orderAccepted,

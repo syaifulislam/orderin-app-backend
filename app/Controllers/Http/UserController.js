@@ -1,8 +1,19 @@
 'use strict'
 const User = use('App/Models/User');
+const { validate } = use('Validator');
 
 class UserController {
     async register ({request,auth,response}) {
+        const rules = {
+          email     : 'required',
+          username  : 'required',
+          password  : 'required',
+          role_id   : 'required'
+        }
+        const validation = await validate(request.all(), rules)
+        if (validation.fails()) {
+          return response.json({status: 'Form Validation Error', message: "fail",code:401})
+        }
         const email = request.input("email")
         const username = request.input("username")
         const password = request.input("password")
